@@ -48,10 +48,9 @@ public class BookTest extends TST2.base {
 
         //checking found elements
 
-        Response resp = RestAssured.given().when()
-                .get("https://bookstore.toolsqa.com/BookStore/v1/Books");
 
-        BookList list = resp.jsonPath().getObject("", BookList.class);
+        BookList list = RestAssured.given().when()
+                .get("https://bookstore.toolsqa.com/BookStore/v1/Books").jsonPath().getObject("", BookList.class);
 
         List<Book> booksList = list.books.stream().filter(x->x.publisher.equals("O'Reilly Media")).collect(Collectors.toList());
 
