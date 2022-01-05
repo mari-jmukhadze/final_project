@@ -3,21 +3,16 @@ package TST2;
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
-import io.restassured.mapper.ObjectMapperType;
 import io.restassured.parsing.Parser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+//import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import io.restassured.response.Response;
-import org.apache.commons.lang3.StringUtils;
-
-import java.time.Duration;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$$x;
@@ -63,13 +58,7 @@ public class BookTest extends TST2.base {
         Assert.assertEquals(booksList.size(),Books.size());
 
 
-
-
     }
-
-
-//    }
-
 
 
 
