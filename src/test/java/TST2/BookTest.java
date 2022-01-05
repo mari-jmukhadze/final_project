@@ -3,6 +3,7 @@ package TST2;
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
+import io.restassured.mapper.ObjectMapperType;
 import io.restassured.parsing.Parser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -52,7 +53,14 @@ public class BookTest extends TST2.base {
         BookList list = RestAssured.given().when()
                 .get("https://bookstore.toolsqa.com/BookStore/v1/Books").jsonPath().getObject("", BookList.class);
 
+
+        //es dzalian nela mushaobs
+//        BookList list = RestAssured.given().queryParam("publisher","O'Reilly Media", ObjectMapperType.JAXB).when()
+//                .get("https://bookstore.toolsqa.com/BookStore/v1/Book").jsonPath().getObject("", BookList.class);
+
         List<Book> booksList = list.books.stream().filter(x->x.publisher.equals("O'Reilly Media")).collect(Collectors.toList());
+
+
 
         Assert.assertEquals(booksList.size(),Books.size());
 
