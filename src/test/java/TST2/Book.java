@@ -1,21 +1,14 @@
 package TST2;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.WebDriverWait;
+public class Book {
+    public String isbn;
+    public String title;
+    public String subTitle;
+    public String author;
+    public String publish_date;
+    public String publisher;
+    public int pages;
+    public String description;
+    public String website;
 
-import java.time.Duration;
-
-import TST2.base;
-
-//import static TST2.base.driver;
-//
-//public class Book {
-//    By books_div = By.className("mr-2");
-//    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-//
-//    private final String bookTitle;
-//
-//    public Book(String title) {
-//        title = title;
-//    }
-//}
+}

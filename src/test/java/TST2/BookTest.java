@@ -3,6 +3,7 @@ package TST2;
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
+import io.restassured.mapper.ObjectMapperType;
 import io.restassured.parsing.Parser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,9 +17,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.open;
+import static io.restassured.RestAssured.given;
 
 
 public class BookTest extends TST2.base {
@@ -34,30 +38,34 @@ public class BookTest extends TST2.base {
     }
 
     By books_div = By.className("mr-2");
-//    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 
     @Test
     public void searchBook() {
+
+
         By searchbox = By.xpath("//*[@id=\"searchBox\"]");
-        driver.findElement(searchbox).sendKeys("O\'Reilly Media");
+        driver.findElement(searchbox).sendKeys("O'Reilly Media");
+
 
         List<WebElement> Books =  driver.findElements(books_div);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(books_div));
-//        return driver.findElements(books_div);
 
         System.out.println(Books.size());
 
         //checking found elements
-        open("https://demoqa.com/books");
-        ElementsCollection allBooks = $$x("//div[@class='rt-td' and contains(text(),'Reilly Media')]");
 
-        assert  allBooks.size() == Books.size();
+        Response resp = RestAssured.given().when()
+                .get("https://bookstore.toolsqa.com/BookStore/v1/Books");
+
+        BookList list = resp.jsonPath().getObject("", BookList.class);
+
+        List<Book> booksList = list.books.stream().filter(x->x.publisher.equals("O'Reilly Media")).collect(Collectors.toList());
+
+        Assert.assertEquals(booksList.size(),Books.size());
+
 
 
 
     }
-
-
 
 
 //    }
